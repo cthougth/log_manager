@@ -1,0 +1,50 @@
+/*index-page*/
+.index{
+
+}
+.home-section-main{
+    position: relative;
+    margin-top:20px;
+}
+.home-section-left{
+    padding-right:320px;
+}
+
+.home-section-right{
+    position: absolute;
+    right:0;
+    top:0;
+    width:300px;
+}
+
+
+/*tc-card*/
+.tc-card{
+    margin-bottom:30px;
+}
+
+.tc-card-header{
+
+}
+.tc-card-header {
+    padding: 5px 20px 20px 5px;
+}
+.tc-card-header-name{
+    display: inline-block;
+    font-size:16px;
+    font-weight: bold;
+    color: #444;
+}
+.tc-card-header-more{
+    float: right;
+    text-decoration: none;
+    font-size:20px;
+    line-height:16px;
+    color:#666;
+}
+.tc-card-body{
+    border-radius:2px;
+    background-color: #fff;
+    border:1px solid #e6e9f0;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.03);
+}
