@@ -33,7 +33,7 @@
 
         // 服务器统一请求接口路径
         //, serverUrl: URL + "php/controller.php"
-      , serverUrl : "http://www.mylog.com/index.php?r=blog/ueditor/index"
+      , serverUrl : "//www.mylog.com/index.php?r=blog/ueditor/index"
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
