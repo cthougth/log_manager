@@ -9,6 +9,9 @@
                 <el-menu-item index="1-1-1">
                     <router-link :to="{path : '/article/add'}">写文章</router-link>
                 </el-menu-item>
+                <el-menu-item index="1-1-2">
+                    <router-link :to="{name : 'articleList'}">文章列表</router-link>
+                </el-menu-item>
             </el-submenu>
 
             <el-submenu index="2">

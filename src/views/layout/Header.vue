@@ -3,8 +3,7 @@
         <div class="topbar clearfix">
             <h1 class="tc-logo pull-left">
                 <router-link :to="{name : 'Index'}">
-                    <img class="tc-logo-img" src="../../assets/img/tc-header-logo.png"/>
-                    <span class="tc-logo-text">会员中心</span>
+                    <span class="tc-logo-text">文章后台</span>
                 </router-link>
             </h1>
 

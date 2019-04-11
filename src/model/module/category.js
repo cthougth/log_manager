@@ -79,4 +79,11 @@ export default module.clone({
             return _self.buildCascader(result.list);
         });
     },
+
+    one(form , item){
+        form = item;
+        if(item.pid){
+            form.pid = parseInt(item.pid);
+        }
+    },
 });

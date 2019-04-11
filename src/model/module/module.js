@@ -9,25 +9,43 @@ export default model.clone({
     cache: cache,
 
     /**
-     *  menus,
      *  moduleName ,
-     *  moduleID,
-     *  statusName,
-     *  checkForm()
      *  这些属性留在子类中定义
      */
 
-    list(page = 1 , pagesize = 10){
-        return this.api.get({
-            r : 'blog/' + this.moduleName + '/list',
-            page : page,
-            pagesize : pagesize
-        });
+    list(page = 1 , pagesize = 10 , selector = {}){
+        selector.r = 'blog/' + this.moduleName + '/list';
+        selector.page = page;
+        selector.pagesize = pagesize;
+        return this.api.get(selector).then(this.afterList);
     },
-
     add(form){
         form.r = 'blog/'+this.moduleName + '/create';
         return this.api.post(form);
+    },
+    info(id , field = ''){
+        return this.api.get({
+            r : 'blog/'+this.moduleName + '/info',
+            id : id,
+            field : field,
+        });
+    },
+    edit(id,form){
+        form.id = id;
+        form.r = 'blog/'+this.moduleName + '/update';
+        return this.api.post(form);
+    },
+    delete(id){
+        return this.api.post({
+            r : 'blog/' + this.moduleName + '/delete',
+            id : id,
+        });
+    },
+
+
+    //预留切面方法
+    afterList(result){
+        return result;
     },
 });
 
