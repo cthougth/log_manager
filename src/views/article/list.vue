@@ -49,5 +49,10 @@
                 dataModel: article,
             };
         },
+        methods: {
+            editTableItem(id) {
+                this.$router.push({name: 'articleEdit', params: {id: id}});
+            }
+        }
     }
 </script>

@@ -23,6 +23,7 @@ export default new Router({
             children: [
                 {path: '', component: memberIndex, name: 'Index',},
                 {path: 'article/add' , component: articleForm , name : 'articleAdd'},
+                {path: 'article/edit/:id' ,component : articleForm , name : 'articleEdit'},
                 {path: 'article/list' , component : articleList , name :'articleList'},
 
                 {path: 'category' , component : category , name : 'category'},

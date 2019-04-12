@@ -18,6 +18,9 @@
                 <el-form-item prop="content" label="稿件正文：">
                     <u-editor :config="{initialFrameHeight: 350}" :defaultMsg="form.content" ref="ueditor"></u-editor>
                 </el-form-item>
+                <el-form-item>
+                    <el-button @click="sendArticle">提交</el-button>
+                </el-form-item>
             </el-form>
         </div>
     </el-main>
@@ -26,16 +29,17 @@
 <script>
     import ueditor from '@/components/ueditor.vue';
     import category from '@/model/module/category.js';
+    import article from '@/model/module/article.js';
 
     export default {
         data() {
             return {
-                isLoading: false,
                 form: {
                     title: '',
                     content: '',
                     sortid : '',
                 },
+                editId : 0,
                 rules: {},
                 category : {
                     data : [],
@@ -44,14 +48,37 @@
             };
         },
         created(){
+            if(this.isEditPage()){
+                article.info(this.$route.params.id).then((result) => {
+                    this.form = result;
+                    this.editId = this.$route.params.id;
+                });
+            }else{
+                this.form = {title : '',content : '',sortid : ''};
+            }
             category.getCascaderData().then(result => {
                 this.category.data = result;
             });
         },
         methods: {
+            isEditPage(){
+                return this.$route.name == 'articleEdit';
+            },
             handleCategoryChange(val){
                 this.form.sortid = val[val.length - 1];
             },
+            sendArticle(){
+                this.form.content = this.$refs.uEditor.getUEContent();
+                if(this.isEditPage()){
+                    article.edit(this.editId , this.form).then((result) => {
+                        this.$message({message : '修改成功'});
+                    });
+                }else{
+                    article.add(this.form).then((result) => {
+                        this.$message({message : '发布成功'});
+                    });
+                }
+            }
         },
         components: {
             'u-editor': ueditor,
