@@ -19,7 +19,7 @@
                     <u-editor :config="{initialFrameHeight: 350}" :defaultMsg="form.content" ref="ueditor"></u-editor>
                 </el-form-item>
                 <el-form-item>
-                    <el-button @click="sendArticle">提交</el-button>
+                    <el-button @click="sendArticle" type="primary">提交</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -34,6 +34,7 @@
     export default {
         data() {
             return {
+                isLoading : false,
                 form: {
                     title: '',
                     content: '',
@@ -48,14 +49,7 @@
             };
         },
         created(){
-            if(this.isEditPage()){
-                article.info(this.$route.params.id).then((result) => {
-                    this.form = result;
-                    this.editId = this.$route.params.id;
-                });
-            }else{
-                this.form = {title : '',content : '',sortid : ''};
-            }
+            this.loadPage();
             category.getCascaderData().then(result => {
                 this.category.data = result;
             });
@@ -68,7 +62,7 @@
                 this.form.sortid = val[val.length - 1];
             },
             sendArticle(){
-                this.form.content = this.$refs.uEditor.getUEContent();
+                this.form.content = this.$refs.ueditor.getUEContent();
                 if(this.isEditPage()){
                     article.edit(this.editId , this.form).then((result) => {
                         this.$message({message : '修改成功'});
@@ -78,10 +72,32 @@
                         this.$message({message : '发布成功'});
                     });
                 }
-            }
+            },
+            loadPage(){
+                if(this.isEditPage()){
+                    article.info(this.$route.params.id).then((result) => {
+                        this.form = result;
+                        this.editId = this.$route.params.id;
+                        category.list_all().then((allCategorys) => {
+                            allCategorys.list.forEach((item) => {
+                                if(item.sid == result.sortid){
+                                    this.category.selected = [item.pid, item.sid];
+                                }
+                            });
+                        });
+                    });
+                }else{
+                    this.form = {title : '',content : '',sortid : ''};
+                }
+            },
         },
         components: {
             'u-editor': ueditor,
         },
+        watch : {
+            $route(val){
+                this.loadPage();
+            },
+        }
     }
 </script>

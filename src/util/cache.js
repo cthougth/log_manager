@@ -35,6 +35,10 @@ export default {
         return (checkCache() && checkExpires()) ? JSON.parse(cacheValue) : null;
     },
 
+    delete(cKey){
+        window.localStorage.removeItem(cachePre + cKey);
+    },
+
     check(cKey, checkValue = null) {
         let value = this.get(cKey);
         return checkValue === null ? value !== null : value === checkValue;
@@ -49,6 +53,7 @@ export default {
         return new Promise((resolve, reject) => {
             resolve(value);
         });
-
     },
+
+
 };

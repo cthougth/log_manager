@@ -98,12 +98,15 @@
             };
         },
         created() {
-            this.loadList();
-            category.first_level().then((result) => {
-                this.firstLevel = result;
-            });
+            this.load();
         },
         methods: {
+            load(){
+                this.loadList();
+                category.first_level().then((result) => {
+                    this.firstLevel = result;
+                });
+            },
             openDialog() {
                 this.dialog.visible = true;
                 this.form = {
@@ -119,12 +122,12 @@
                     category.edit(this.form.sid, this.form).then((result) => {
                         this.$message({message: '修改成功'});
                         this.dialog.visible = false;
-                        this.loadList();
+                        this.load();
                     }) :
                     category.add(this.form).then((result) => {
                         this.$message({message: '提交成功'});
                         this.dialog.visible = false;
-                        this.loadList();
+                        this.load();
                     });
             },
             editTableItem(id) {

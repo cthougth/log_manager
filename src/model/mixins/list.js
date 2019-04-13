@@ -30,10 +30,13 @@ export default {
         },
 
         deleteTableItem(id){
-            this.dataModel.delete(id).then((result) => {
-                this.$message({message: '删除成功'});
-                this.loadList();
+            this.$confirm('确定删除？').then((result) => {
+                this.dataModel.delete(id).then((result) => {
+                    this.$message({message: '删除成功'});
+                    this.loadList();
+                });
             });
+
         },
         handlePagesizeChange(val){
             this.pagination.pageSize = val;

@@ -32,8 +32,8 @@ export default {
     response: function(url = this.baseUrl, params = {}, method = 'get'){
         let responseFunc = function(method){
             return function(url, params){
-                params.token = token.getToken();
-                params.userId = member.userId();
+                //params.token = token.getToken();
+                //params.userId = member.userId();
                 return method == 'post' ?
                     axios.post(url, qs.stringify(params)) :
                     axios.get(url, {params : params});

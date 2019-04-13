@@ -7,10 +7,10 @@ export default module.clone({
     list_all_key : 'category-list-all',     //所有分类
     first_all_key : 'category-first-level', //最上级所有分类
 
-    /**1
+    /**
      * 获取所有分类内容
      * @returns Promise
-     */
+    **/
     list_all(){
         if(this.cache.check(this.list_all_key)){
             return this.cache.getPromise(this.list_all_key);
@@ -80,10 +80,14 @@ export default module.clone({
         });
     },
 
-    one(form , item){
-        form = item;
-        if(item.pid){
-            form.pid = parseInt(item.pid);
-        }
+    afterAdd(result){
+        this.cache.delete(this.list_all_key);
+        this.cache.delete(this.first_all_key);
+        return result;
+    },
+    afterEdit(result,obj){
+        this.cache.delete(this.list_all_key);
+        this.cache.delete(this.first_all_key);
+        return result;
     },
 });

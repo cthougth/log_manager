@@ -1,7 +1,6 @@
 import model from '@/model/model.js';
 import api from '@/util/api.js';
 import cache from '@/util/cache.js';
-import member from '@/model/member.js';
 import formatDate from '@/util/formatDate.js';
 
 export default model.clone({
@@ -21,19 +20,25 @@ export default model.clone({
     },
     add(form){
         form.r = 'blog/'+this.moduleName + '/create';
-        return this.api.post(form);
+        return this.api.post(form).then((result) => {
+            return this.afterAdd(result,this);
+        });
     },
     info(id , field = ''){
         return this.api.get({
             r : 'blog/'+this.moduleName + '/info',
             id : id,
             field : field,
+        }).then((result) => {
+            return this.afterInfo(result,this);
         });
     },
     edit(id,form){
         form.id = id;
         form.r = 'blog/'+this.moduleName + '/update';
-        return this.api.post(form);
+        return this.api.post(form).then((result) => {
+            return this.afterEdit(result,this);
+        });
     },
     delete(id){
         return this.api.post({
@@ -44,7 +49,16 @@ export default model.clone({
 
 
     //预留切面方法
-    afterList(result){
+    afterList(result,obj){
+        return result;
+    },
+    afterInfo(result,obj){
+        return result;
+    },
+    afterAdd(result,obj){
+        return result;
+    },
+    afterEdit(result,obj){
         return result;
     },
 });
